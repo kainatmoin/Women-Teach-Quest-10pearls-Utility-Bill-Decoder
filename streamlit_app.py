@@ -87,10 +87,17 @@ WTQ_CUSTOM_CSS = """
     --shadow-glass: 0 10px 30px -5px rgba(87, 51, 140, 0.08), 0 4px 14px rgba(53, 182, 200, 0.05);
   }
 
-  /* Global Typography */
-  html, body, [class*="css"], [class*="st-"] {
+  /* Global Typography & Viewport Overflow Protection */
+  html, body, .stApp {
     font-family: 'Outfit', sans-serif !important;
     color: var(--text-main);
+    overflow-x: hidden !important;
+    max-width: 100vw !important;
+    box-sizing: border-box !important;
+  }
+
+  *, *::before, *::after {
+    box-sizing: inherit !important;
   }
 
   /* Animated Multi-Gradient Background */
@@ -106,76 +113,113 @@ WTQ_CUSTOM_CSS = """
     100% { background-position: 0% 40%; }
   }
 
-  /* Header Branding Banner */
+  /* =========================================================================
+     Header / Hero Branding Banner
+     ========================================================================= */
   .wtq-banner {
     background: linear-gradient(135deg, #57338C 0%, #8050B8 48%, #35B6C8 100%);
     border-bottom: 3.5px solid var(--wtq-yellow);
     border-radius: 16px;
-    padding: 1.4rem 2rem;
-    margin-bottom: 1.8rem;
+    padding: 1.25rem 1.8rem;
+    margin-bottom: 1.5rem;
     box-shadow: 0 10px 28px rgba(87, 51, 140, 0.22);
+    color: white;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .wtq-banner-top {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: white;
+    gap: 16px;
+    width: 100%;
   }
+
   .wtq-title-wrap {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 14px;
+    min-width: 0;
+    flex: 1;
   }
+
   .wtq-logo-icon {
-    width: 52px;
-    height: 52px;
-    background: rgba(255, 255, 255, 0.2);
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    max-width: 48px;
+    background: rgba(255, 255, 255, 0.22);
     border: 1.5px solid rgba(255, 255, 255, 0.45);
     border-radius: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 26px;
+    font-size: 24px;
     box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    flex-shrink: 0;
   }
+
+  .wtq-title-text-box {
+    min-width: 0;
+    flex: 1;
+    overflow: hidden;
+  }
+
   .wtq-header-title {
-    font-size: 1.65rem;
+    font-size: 1.55rem;
     font-weight: 800;
-    line-height: 1.2;
+    line-height: 1.25;
     color: #FFFFFF !important;
     margin: 0;
+    word-break: normal !important;
+    overflow-wrap: break-word !important;
+    hyphens: none !important;
   }
+
   .wtq-header-subtitle {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     color: rgba(255, 255, 255, 0.92);
-    margin: 3px 0 0 0;
+    margin: 4px 0 0 0;
+    line-height: 1.35;
+    word-break: normal !important;
+    overflow-wrap: break-word !important;
   }
+
   .wtq-badge-event {
     background: rgba(247, 201, 40, 0.25);
     border: 1px solid var(--wtq-yellow);
     color: #FFFDF0;
     padding: 6px 14px;
     border-radius: 30px;
-    font-size: 0.82rem;
+    font-size: 0.8rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
 
-  /* Glassmorphism Cards */
+  /* =========================================================================
+     Glassmorphism Cards & Typography
+     ========================================================================= */
   .glass-card {
     background: var(--bg-glass);
     backdrop-filter: blur(14px);
     border: 1px solid var(--border-subtle);
     border-radius: var(--card-radius);
-    padding: 1.5rem;
-    margin-bottom: 1.3rem;
+    padding: 1.4rem;
+    margin-bottom: 1.2rem;
     box-shadow: var(--shadow-glass);
+    box-sizing: border-box;
+    width: 100%;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
+
   .glass-card:hover {
     box-shadow: 0 14px 34px -5px rgba(87, 51, 140, 0.12);
   }
 
-  /* Section Titles */
   .section-title {
     font-size: 1.15rem;
     font-weight: 700;
@@ -184,22 +228,31 @@ WTQ_CUSTOM_CSS = """
     align-items: center;
     gap: 8px;
     margin-bottom: 1rem;
+    word-break: normal;
   }
 
-  /* Metric Card Grid */
+  /* =========================================================================
+     Metric Cards Grid
+     ========================================================================= */
   .metric-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
     gap: 12px;
     margin-bottom: 1.2rem;
+    width: 100%;
+    box-sizing: border-box;
   }
+
   .metric-card {
     background: rgba(255, 255, 255, 0.85);
     border: 1px solid rgba(128, 80, 184, 0.14);
     border-radius: 14px;
     padding: 12px 14px;
     box-shadow: 0 4px 12px rgba(87, 51, 140, 0.04);
+    box-sizing: border-box;
+    min-width: 0;
   }
+
   .metric-label {
     font-size: 0.76rem;
     text-transform: uppercase;
@@ -207,13 +260,20 @@ WTQ_CUSTOM_CSS = """
     letter-spacing: 0.4px;
     color: var(--text-muted);
     margin-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
+
   .metric-value {
-    font-size: 1.25rem;
+    font-size: 1.22rem;
     font-weight: 800;
     color: var(--wtq-purple-deep);
     font-family: 'JetBrains Mono', monospace !important;
+    word-break: break-word;
+    overflow-wrap: break-word;
   }
+
   .metric-value.highlight-teal {
     color: var(--wtq-teal-deep);
   }
@@ -224,16 +284,26 @@ WTQ_CUSTOM_CSS = """
     color: var(--accent-success);
   }
 
-  /* Breakdown Tables */
+  /* =========================================================================
+     Tables & Responsive Containers
+     ========================================================================= */
+  .table-responsive-container {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-top: 6px;
+    border-radius: 10px;
+    border: 1px solid rgba(128, 80, 184, 0.08);
+  }
+
   .styled-table {
     width: 100%;
+    min-width: 230px;
     border-collapse: collapse;
     font-size: 0.88rem;
-    margin-top: 6px;
     background: rgba(255, 255, 255, 0.7);
-    border-radius: 10px;
-    overflow: hidden;
   }
+
   .styled-table th {
     background: var(--wtq-purple-light);
     color: var(--wtq-purple-deep);
@@ -241,20 +311,25 @@ WTQ_CUSTOM_CSS = """
     text-align: left;
     padding: 8px 12px;
   }
+
   .styled-table td {
     padding: 8px 12px;
     border-top: 1px solid rgba(128, 80, 184, 0.08);
   }
+
   .styled-table tr:hover {
     background: rgba(53, 182, 200, 0.06);
   }
+
   .table-num {
     font-family: 'JetBrains Mono', monospace !important;
     text-align: right;
     font-weight: 600;
   }
 
-  /* Answer Card */
+  /* =========================================================================
+     Answer Card
+     ========================================================================= */
   .answer-card {
     background: linear-gradient(135deg, rgba(235, 248, 250, 0.95) 0%, rgba(243, 238, 249, 0.95) 100%);
     border-left: 5px solid var(--wtq-teal);
@@ -262,7 +337,10 @@ WTQ_CUSTOM_CSS = """
     padding: 1.3rem;
     margin-top: 1rem;
     box-shadow: 0 6px 20px rgba(53, 182, 200, 0.1);
+    word-break: break-word;
+    overflow-wrap: break-word;
   }
+
   .answer-title {
     font-weight: 800;
     color: var(--wtq-teal-deep);
@@ -272,33 +350,40 @@ WTQ_CUSTOM_CSS = """
     gap: 8px;
     font-size: 1.02rem;
   }
+
   .answer-body {
-    font-size: 1rem;
-    line-height: 1.6;
+    font-size: 0.98rem;
+    line-height: 1.55;
     color: var(--text-main);
   }
 
-  /* Streamlit Button Styling */
+  /* =========================================================================
+     Streamlit Buttons & Touch Targets
+     ========================================================================= */
   div.stButton > button:first-child {
     background: linear-gradient(135deg, #8050B8 0%, #57338C 100%) !important;
     color: white !important;
     border: none !important;
     border-radius: 12px !important;
-    padding: 0.55rem 1.4rem !important;
+    padding: 0.55rem 1.2rem !important;
     font-weight: 700 !important;
-    font-size: 0.95rem !important;
+    font-size: 0.92rem !important;
+    min-height: 42px !important;
     box-shadow: 0 4px 14px rgba(128, 80, 184, 0.3) !important;
     transition: all 0.2s ease !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    white-space: normal !important;
+    word-break: normal !important;
+    line-height: 1.25 !important;
+    width: 100% !important;
   }
+
   div.stButton > button:first-child:hover {
     transform: translateY(-2px) !important;
     box-shadow: 0 6px 20px rgba(87, 51, 140, 0.4) !important;
-  }
-
-  /* Secondary / Teal action buttons */
-  .btn-teal div.stButton > button:first-child {
-    background: linear-gradient(135deg, #35B6C8 0%, #0E7490 100%) !important;
-    box-shadow: 0 4px 14px rgba(53, 182, 200, 0.3) !important;
   }
 
   /* Tab Header Styling */
@@ -307,6 +392,7 @@ WTQ_CUSTOM_CSS = """
     border-bottom: 2px solid rgba(128, 80, 184, 0.15);
     padding-bottom: 4px;
   }
+
   .stTabs [data-baseweb="tab"] {
     background: rgba(255, 255, 255, 0.7);
     border-radius: 10px 10px 0 0;
@@ -316,6 +402,7 @@ WTQ_CUSTOM_CSS = """
     border: 1px solid rgba(128, 80, 184, 0.1);
     border-bottom: none;
   }
+
   .stTabs [aria-selected="true"] {
     background: white !important;
     color: var(--wtq-purple-deep) !important;
@@ -323,9 +410,282 @@ WTQ_CUSTOM_CSS = """
     border-top: 3px solid var(--wtq-purple) !important;
   }
 
-  /* Code block styling */
-  pre, code {
+  /* Code & JSON blocks */
+  pre, code, [data-testid="stCode"] {
     font-family: 'JetBrains Mono', monospace !important;
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    word-break: break-all !important;
+    white-space: pre-wrap !important;
+  }
+
+  /* Responsive Images */
+  img {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+
+  /* =========================================================================
+     MEDIA QUERY: Tablet & Large Mobile (<= 768px)
+     ========================================================================= */
+  @media (max-width: 768px) {
+    .block-container {
+      padding-top: 1.2rem !important;
+      padding-bottom: 2rem !important;
+      padding-left: 0.75rem !important;
+      padding-right: 0.75rem !important;
+      max-width: 100% !important;
+    }
+
+    .wtq-banner {
+      padding: 1rem 1.1rem;
+      margin-bottom: 1.2rem;
+      border-radius: 14px;
+    }
+
+    .wtq-banner-top {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .wtq-title-wrap {
+      gap: 12px;
+      width: 100%;
+    }
+
+    .wtq-logo-icon {
+      width: 42px;
+      height: 42px;
+      min-width: 42px;
+      font-size: 20px;
+      border-radius: 12px;
+    }
+
+    .wtq-header-title {
+      font-size: 1.22rem;
+      line-height: 1.25;
+    }
+
+    .wtq-header-subtitle {
+      font-size: 0.82rem;
+      line-height: 1.35;
+      margin-top: 2px;
+    }
+
+    .wtq-badge-event {
+      align-self: flex-start;
+      padding: 4px 10px;
+      font-size: 0.72rem;
+      margin-top: 2px;
+    }
+
+    .glass-card {
+      padding: 1rem 0.85rem;
+      margin-bottom: 1rem;
+      border-radius: 14px;
+    }
+
+    .section-title {
+      font-size: 1.05rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .stTabs [data-baseweb="tab-list"] {
+      gap: 4px;
+      overflow-x: auto;
+      flex-wrap: nowrap;
+      padding-bottom: 2px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .stTabs [data-baseweb="tab"] {
+      padding: 6px 12px;
+      font-size: 0.85rem;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* Columns responsive collapsing */
+    [data-testid="stHorizontalBlock"] {
+      flex-wrap: wrap !important;
+      gap: 8px !important;
+    }
+
+    /* 2-column layout (Input vs Results) stacks vertically */
+    [data-testid="stHorizontalBlock"] > [data-testid="column"]:first-child:nth-last-child(2),
+    [data-testid="stHorizontalBlock"] > [data-testid="column"]:first-child:nth-last-child(2) ~ [data-testid="column"] {
+      min-width: 100% !important;
+      flex: 1 1 100% !important;
+    }
+
+    /* 3-column stats */
+    [data-testid="stHorizontalBlock"] > [data-testid="column"]:first-child:nth-last-child(3),
+    [data-testid="stHorizontalBlock"] > [data-testid="column"]:first-child:nth-last-child(3) ~ [data-testid="column"] {
+      min-width: 130px !important;
+      flex: 1 1 130px !important;
+    }
+
+    /* 5-column preset question buttons wrap nicely */
+    [data-testid="stHorizontalBlock"] > [data-testid="column"]:first-child:nth-last-child(5),
+    [data-testid="stHorizontalBlock"] > [data-testid="column"]:first-child:nth-last-child(5) ~ [data-testid="column"] {
+      min-width: 130px !important;
+      flex: 1 1 130px !important;
+    }
+
+    div.stButton > button:first-child {
+      padding: 0.5rem 0.75rem !important;
+      font-size: 0.85rem !important;
+    }
+  }
+
+  /* =========================================================================
+     MEDIA QUERY: Mobile Standard (<= 480px)
+     ========================================================================= */
+  @media (max-width: 480px) {
+    .metric-grid {
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 8px !important;
+    }
+
+    .metric-card {
+      padding: 9px 10px !important;
+      border-radius: 12px !important;
+    }
+
+    .metric-label {
+      font-size: 0.68rem !important;
+    }
+
+    .metric-value {
+      font-size: 1.05rem !important;
+    }
+
+    .styled-table {
+      font-size: 0.78rem !important;
+    }
+
+    .styled-table th, .styled-table td {
+      padding: 6px 8px !important;
+    }
+
+    .answer-card {
+      padding: 0.95rem !important;
+      margin-top: 0.8rem !important;
+      border-left-width: 4px !important;
+      border-radius: 12px !important;
+    }
+
+    .answer-title {
+      font-size: 0.92rem !important;
+      margin-bottom: 6px !important;
+    }
+
+    .answer-body {
+      font-size: 0.88rem !important;
+      line-height: 1.45 !important;
+    }
+  }
+
+  /* =========================================================================
+     MEDIA QUERY: Mobile Narrow (<= 430px: iPhone 14/15, Galaxy, Pixel)
+     ========================================================================= */
+  @media (max-width: 430px) {
+    .block-container {
+      padding-left: 0.5rem !important;
+      padding-right: 0.5rem !important;
+      padding-top: 0.85rem !important;
+    }
+
+    .wtq-banner {
+      padding: 0.85rem 0.9rem !important;
+      margin-bottom: 1rem !important;
+      border-radius: 12px !important;
+    }
+
+    .wtq-banner-top {
+      gap: 8px !important;
+    }
+
+    .wtq-title-wrap {
+      gap: 10px !important;
+    }
+
+    .wtq-logo-icon {
+      width: 36px !important;
+      height: 36px !important;
+      min-width: 36px !important;
+      font-size: 18px !important;
+      border-radius: 10px !important;
+    }
+
+    .wtq-header-title {
+      font-size: 1.06rem !important;
+      line-height: 1.25 !important;
+      letter-spacing: -0.2px !important;
+    }
+
+    .wtq-header-subtitle {
+      font-size: 0.74rem !important;
+      line-height: 1.25 !important;
+      margin-top: 2px !important;
+    }
+
+    .wtq-badge-event {
+      padding: 3px 8px !important;
+      font-size: 0.66rem !important;
+      letter-spacing: 0.3px !important;
+    }
+
+    .glass-card {
+      padding: 0.85rem 0.7rem !important;
+      margin-bottom: 0.85rem !important;
+      border-radius: 12px !important;
+    }
+
+    .section-title {
+      font-size: 0.96rem !important;
+      margin-bottom: 0.65rem !important;
+    }
+
+    /* Preset chips on narrow mobile: 2 per row */
+    [data-testid="stHorizontalBlock"] > [data-testid="column"]:first-child:nth-last-child(5),
+    [data-testid="stHorizontalBlock"] > [data-testid="column"]:first-child:nth-last-child(5) ~ [data-testid="column"] {
+      min-width: calc(50% - 6px) !important;
+      flex: 1 1 calc(50% - 6px) !important;
+    }
+
+    /* 3-column stats on narrow screen collapse cleanly */
+    [data-testid="stHorizontalBlock"] > [data-testid="column"]:first-child:nth-last-child(3),
+    [data-testid="stHorizontalBlock"] > [data-testid="column"]:first-child:nth-last-child(3) ~ [data-testid="column"] {
+      min-width: 100% !important;
+      flex: 1 1 100% !important;
+    }
+
+    div.stButton > button:first-child {
+      padding: 0.45rem 0.6rem !important;
+      font-size: 0.8rem !important;
+    }
+  }
+
+  /* =========================================================================
+     MEDIA QUERY: Ultra-Narrow Mobile (<= 340px)
+     ========================================================================= */
+  @media (max-width: 340px) {
+    .metric-grid {
+      grid-template-columns: 1fr !important;
+      gap: 6px !important;
+    }
+
+    [data-testid="stHorizontalBlock"] > [data-testid="column"]:first-child:nth-last-child(5),
+    [data-testid="stHorizontalBlock"] > [data-testid="column"]:first-child:nth-last-child(5) ~ [data-testid="column"] {
+      min-width: 100% !important;
+      flex: 1 1 100% !important;
+    }
+
+    .wtq-header-title {
+      font-size: 0.98rem !important;
+    }
   }
 </style>
 """
@@ -404,16 +764,19 @@ with st.sidebar:
 # ---------------------------------------------------------------------------
 st.markdown("""
 <div class="wtq-banner">
-  <div class="wtq-title-wrap">
-    <div class="wtq-logo-icon">⚡</div>
-    <div>
-      <h1 class="wtq-header-title">WTQ 2026 Utility Bill Decoder</h1>
-      <p class="wtq-header-subtitle">AI-Powered Electricity Bill Extraction & Grounded Customer Q&A Dashboard</p>
+  <div class="wtq-banner-top">
+    <div class="wtq-title-wrap">
+      <div class="wtq-logo-icon">⚡</div>
+      <div class="wtq-title-text-box">
+        <h1 class="wtq-header-title">WTQ 2026 Utility Bill Decoder</h1>
+        <p class="wtq-header-subtitle">AI-Powered Electricity Bill Extraction & Grounded Customer Q&A</p>
+      </div>
     </div>
+    <div class="wtq-badge-event">Women Tech Quest 2026</div>
   </div>
-  <div class="wtq-badge-event">Women Tech Quest 2026</div>
 </div>
 """, unsafe_allow_html=True)
+
 
 # ---------------------------------------------------------------------------
 # Navigation Tabs
@@ -582,11 +945,13 @@ with tab_explorer:
                     ])
                     tot_charges = f"Rs. {d.get('total_charges'):,}" if d.get('total_charges') is not None else "null"
                     st.markdown(f"""
-                    <table class="styled-table">
-                      <thead><tr><th>Charge Type</th><th style="text-align: right;">Amount (PKR)</th></tr></thead>
-                      <tbody>{rows_html}</tbody>
-                      <tfoot><tr><th colspan="2" style="text-align: right;">Total: {tot_charges}</th></tr></tfoot>
-                    </table>
+                    <div class="table-responsive-container">
+                      <table class="styled-table">
+                        <thead><tr><th>Charge Type</th><th style="text-align: right;">Amount (PKR)</th></tr></thead>
+                        <tbody>{rows_html}</tbody>
+                        <tfoot><tr><th colspan="2" style="text-align: right;">Total: {tot_charges}</th></tr></tfoot>
+                      </table>
+                    </div>
                     """, unsafe_allow_html=True)
                 else:
                     st.caption("No itemized charges visible or covered by security box.")
@@ -601,11 +966,13 @@ with tab_explorer:
                     ])
                     tot_taxes = f"Rs. {d.get('total_taxes'):,}" if d.get('total_taxes') is not None else "null"
                     st.markdown(f"""
-                    <table class="styled-table">
-                      <thead><tr><th>Tax Type</th><th style="text-align: right;">Amount (PKR)</th></tr></thead>
-                      <tbody>{rows_html}</tbody>
-                      <tfoot><tr><th colspan="2" style="text-align: right;">Total: {tot_taxes}</th></tr></tfoot>
-                    </table>
+                    <div class="table-responsive-container">
+                      <table class="styled-table">
+                        <thead><tr><th>Tax Type</th><th style="text-align: right;">Amount (PKR)</th></tr></thead>
+                        <tbody>{rows_html}</tbody>
+                        <tfoot><tr><th colspan="2" style="text-align: right;">Total: {tot_taxes}</th></tr></tfoot>
+                      </table>
+                    </div>
                     """, unsafe_allow_html=True)
                 else:
                     st.caption("Combined in total taxes or not visible.")
