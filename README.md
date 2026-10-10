@@ -166,25 +166,28 @@ HOST=127.0.0.1
 ## 5. Usage & Execution
 
 ### 1. Launch the Interactive Web Dashboard
-Run the dashboard server locally:
+
+#### Option A: Streamlit Edition (Recommended for Streamlit Cloud & Modern UI)
+```powershell
+streamlit run streamlit_app.py
+```
+*Or double-click `run_streamlit.bat` on Windows.*
+Open your web browser at: **`http://localhost:8501`**
+
+#### Option B: Native Python HTTP Server
 ```powershell
 python app.py
 ```
 *Or double-click `run_dashboard.bat` on Windows.*
-
 Open your web browser at: **`http://127.0.0.1:5000`**
 
 **Dashboard Features:**
-- **Bill Explorer**: Browse bill images, run Level 1 extraction with metric cards and tables, and ask grounded questions in real time.
-- **Batch Processor**: Trigger batch processing of test bills directly from the browser.
-- **Submission Packager**: Run pre-flight checks and package your submission ZIP.
-
-To bind to a custom port:
-```powershell
-python app.py 8080
-```
+- **Bill Explorer**: Browse test bills or upload new bills, run Level 1 extraction with metric cards and tables, and ask grounded questions in real time.
+- **Batch Processor**: Trigger batch processing of test bills directly from the browser with CSV download buttons.
+- **Submission Packager**: Run pre-flight checks and package your submission ZIP with one-click download.
 
 ---
+
 
 ### 2. Run Batch Processing via CLI
 To process all test bills and generate `output/level1.csv` and `output/level2.csv`:
@@ -287,31 +290,31 @@ Validates the CSV files and generates `your-submission.zip` matching the require
 
 ## 7. Cloud Deployment Guide
 
-The web application uses Python's standard library `http.server` and is ready for cloud deployment on any host supporting Python or Docker.
+The application can be deployed via **Streamlit Community Cloud** (recommended) or as a container / standalone web service.
 
-### Option A: Render (Recommended Free/Low-Cost Web Service)
-1. Fork or push this repository to GitHub.
-2. Sign in to [Render](https://render.com/) and click **New + > Web Service**.
-3. Select your repository `wtq-utility-bill-decoder`.
-4. Configure service settings:
-   - **Environment**: `Python 3`
-   - **Build Command**: `pip install -r requirements.txt`
-   - **Start Command**: `python app.py`
-5. Under **Environment Variables**, add:
+### Option A: Streamlit Community Cloud (Recommended)
+1. Sign in to [share.streamlit.io](https://share.streamlit.io/) with your GitHub account.
+2. Click **New app**.
+3. Select your repository: `kainatmoin/Women-Teach-Quest-10pearls-Utility-Bill-Decoder`
+4. Set **Branch**: `main`
+5. Set **Main file path**: `streamlit_app.py`
+6. Click **Advanced settings...** and add your secrets:
+   ```toml
+   API_KEY = "your_actual_google_ai_studio_api_key"
+   MODEL_NAME = "gemini-3.5-flash-lite"
+   MODEL_PROVIDER = "google"
+   ```
+7. Click **Deploy!** Your interactive app will be live with full functionality.
+
+### Option B: Render / Railway / Heroku
+To deploy the native HTTP server (`app.py`):
+1. Connect your repository to Render, Railway, or Heroku (the included `Procfile` specifies `web: python app.py`).
+2. Set environment variables in the dashboard:
    - `API_KEY` = *your_google_ai_studio_api_key*
    - `MODEL_NAME` = `gemini-3.5-flash-lite`
    - `MODEL_PROVIDER` = `google`
-6. Click **Deploy Web Service**. Render automatically injects the `$PORT` environment variable, which `app.py` detects to bind to `0.0.0.0:$PORT`.
-7. Once deployment finishes, verify the health endpoint: `https://<your-service>.onrender.com/health`.
+3. Deploy service and verify the `/health` endpoint.
 
-### Option B: Railway / Heroku / Fly.io
-The repository includes a `Procfile`:
-```
-web: python app.py
-```
-1. Connect your GitHub repository to Railway or Heroku.
-2. Add the environment variable `API_KEY` in the project dashboard.
-3. The platform will automatically launch the web process and route traffic to the bound `$PORT`.
 
 ### Option C: Docker Container
 Build and run locally or on any cloud container engine:

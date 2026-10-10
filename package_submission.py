@@ -24,6 +24,7 @@ if hasattr(sys.stdout, "reconfigure"):
 
 REQUIRED_SOURCE_FILES = [
     "app.py",
+    "streamlit_app.py",
     "batch_processor.py",
     "extractor.py",
     "qa_engine.py",
@@ -33,6 +34,7 @@ REQUIRED_SOURCE_FILES = [
     ".env.example",
     "requirements.txt"
 ]
+
 
 def validate_csv_outputs(ws: Path):
     """Validate level1.csv and level2.csv before packaging."""
