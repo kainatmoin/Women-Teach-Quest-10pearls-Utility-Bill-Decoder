@@ -1,0 +1,6 @@
+# Requirements for WTQ Utility Bill Decoder
+# Python 3.11 or later (compatible with Python 3.12 / 3.13)
+# The core pipeline is zero-dependency (uses standard library urllib, json, csv, base64)
+# Optional helper packages:
+requests==2.32.3
+python-dotenv==1.0.1

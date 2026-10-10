@@ -1,0 +1,86 @@
+# =============================================================================
+# .gitignore for wtq-utility-bill-decoder
+# AI-powered electricity bill decoder for Women Tech Quest 2026 (10Pearls)
+# =============================================================================
+
+# --- Environment & Secret Files (CRITICAL: Never commit secrets or API keys) ---
+.env
+.env*.local
+.env.*
+!.env.example
+*.env
+*.key
+*.pem
+*.cert
+secrets.json
+
+# --- Python Virtual Environments ---
+.venv/
+venv/
+ENV/
+env/
+env.bak/
+venv.bak/
+
+# --- Python Bytecode, Build & Cache ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# --- Testing & Code Quality Caches ---
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+.mypy_cache/
+.ruff_cache/
+
+# --- IDE, Editor & OS Temporary Files ---
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+*.sublime-project
+*.sublime-workspace
+.DS_Store
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# --- Large Archives & Media Files (Avoid GitHub repository size limits) ---
+*.zip
+*.tar.gz
+*.tgz
+*.rar
+*.7z
+*.mp4
+*.mov
+*.avi
+*.wmv
+*.webm
+
+# --- Local Staging & Scratch Files ---
+test_output.csv
+*.tmp
+*.log
+My_submission/
